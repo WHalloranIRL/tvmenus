@@ -27,7 +27,7 @@ function changeImage() {
 }
 
 // Change image every 30 seconds (30000 milliseconds)
-setInterval(changeImage, 10000);
+setInterval(changeImage, 30000);
 
 // Fetch images and initialize the first image display
 fetchImages();
