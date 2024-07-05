@@ -3,7 +3,7 @@ let currentIndex = 0;
 
 async function fetchImages() {
   const repoOwner = "whalloranirl"; // Replace with your GitHub username
-  const repoName = "tvmenu"; // Replace with your GitHub repository name
+  const repoName = "tvmenus"; // Replace with your GitHub repository name
   const imagesPath = "images"; // Replace with the path to your images folder in the repository
 
   const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${imagesPath}`;
