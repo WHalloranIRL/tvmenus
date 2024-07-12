@@ -2,12 +2,10 @@ let images = [];
 let currentIndex = 0;
 
 async function fetchImages() {
-  const folderId = "16_DHbZ-2xsXTruTn_dJqyegEfEsRyhXB"; // Replace with your Google Drive folder ID
+  const folderId = "16_DHbZ-2xsXTruTn_dJqyegEfEs"; // Replace with your Google Drive folder ID
   const apiKey = "AIzaSyCwJLqEWAXLAkyYOvhEqKZ8kURae11Lq5k"; // Replace with your Google API key
 
-  // Encode folderId for the query string
   const encodedFolderId = encodeURIComponent(folderId);
-
   const apiUrl = `https://www.googleapis.com/drive/v3/files?q='${encodedFolderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType)`;
 
   try {
@@ -17,18 +15,14 @@ async function fetchImages() {
     }
     const data = await response.json();
 
-    // Log the API response to inspect it
     console.log("API Response:", data);
 
-    // Process and filter image files
     images = data.files
       .filter((file) => file.mimeType.startsWith("image/"))
       .map((file) => `https://drive.google.com/uc?id=${file.id}`);
 
-    // Log the filtered image URLs
-    console.log("Image URLs:", images);
+    console.log("Filtered Image URLs:", images);
 
-    // Initialize the first image display
     if (images.length > 0) {
       changeImage();
     } else {
@@ -36,17 +30,13 @@ async function fetchImages() {
     }
   } catch (error) {
     console.error("Error fetching images:", error);
-    if (error.message.includes("403")) {
-      console.error("Check your API key and permissions.");
-    } else if (error.message.includes("404")) {
-      console.error("Check your folder ID.");
-    }
   }
 }
 
 function changeImage() {
   if (images.length === 0) return;
   const imgElement = document.getElementById("image");
+  console.log("Changing image to:", images[currentIndex]);
   imgElement.src = images[currentIndex];
   currentIndex = (currentIndex + 1) % images.length;
 }
