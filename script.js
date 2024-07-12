@@ -6,7 +6,7 @@ async function fetchImages() {
   const apiKey = "AIzaSyCwJLqEWAXLAkyYOvhEqKZ8kURae11Lq5k"; // Replace with your Google API key
 
   const encodedFolderId = encodeURIComponent(folderId);
-  const apiUrl = `https://www.googleapis.com/drive/v3/files?q='${encodedFolderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType)`;
+  const apiUrl = `https://www.googleapis.com/drive/v3/files?q='${encodedFolderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType,webViewLink)`;
 
   console.log("API URL:", apiUrl); // Log the API URL
 
@@ -21,7 +21,7 @@ async function fetchImages() {
 
     images = data.files
       .filter((file) => file.mimeType.startsWith("image/"))
-      .map((file) => `https://drive.usercontent.google.com/download?id=${file.id}`);
+      .map((file) => `https://drive.google.com/uc?export=view&id=${file.id}`);
 
     console.log("Filtered Image URLs:", images);
 
