@@ -1,3 +1,5 @@
+//https://drive.google.com/drive/folders/16_DHbZ-2xsXTruTn_dJqyegEfEsRyhXB?usp=sharing
+
 let images = [];
 let currentIndex = 0;
 
