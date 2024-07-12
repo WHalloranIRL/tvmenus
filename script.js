@@ -1,5 +1,3 @@
-//https://drive.google.com/drive/folders/16_DHbZ-2xsXTruTn_dJqyegEfEsRyhXB?usp=sharing
-
 let images = [];
 let currentIndex = 0;
 
@@ -8,7 +6,7 @@ async function fetchImages() {
   const apiKey = "AIzaSyCwJLqEWAXLAkyYOvhEqKZ8kURae11Lq5k"; // Replace with your Google API key
 
   const encodedFolderId = encodeURIComponent(folderId);
-  const apiUrl = `https://www.googleapis.com/drive/v3/files?q='${encodedFolderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType,webViewLink)`;
+  const apiUrl = `https://www.googleapis.com/drive/v3/files?q='${encodedFolderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType)`;
 
   console.log("API URL:", apiUrl); // Log the API URL
 
