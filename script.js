@@ -2,17 +2,17 @@ let images = [];
 let currentIndex = 0;
 
 async function fetchImages() {
-  const repoOwner = "whalloranirl"; // Replace with your GitHub username
-  const repoName = "tvmenus"; // Replace with your GitHub repository name
-  const imagesPath = "images"; // Replace with the path to your images folder in the repository
+  const folderId = "16_DHbZ-2xsXTruTn_dJqyegEfEsRyhXB?usp=sharing"; // Replace with your Google Drive folder ID
+  const apiKey = "AIzaSyCwJLqEWAXLAkyYOvhEqKZ8kURae11Lq5k"; // Replace with your Google API key
 
-  const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${imagesPath}`;
+  const apiUrl = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType)`;
+
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
-    images = data
-      .filter((file) => /\.(jpg|jpeg|png|gif)$/.test(file.name))
-      .map((file) => file.download_url);
+    images = data.files
+      .filter((file) => file.mimeType.startsWith("image/"))
+      .map((file) => `https://drive.google.com/uc?id=${file.id}`);
     changeImage();
   } catch (error) {
     console.error("Error fetching images:", error);
