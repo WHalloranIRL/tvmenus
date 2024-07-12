@@ -1,50 +1,21 @@
-let images = [];
+// Replace with your Google Drive image URLs
+const imageUrls = [
+  "https://drive.google.com/uc?id=170j_v8uBKzKvUc6Hj1NWAiXYf5QWDDNO",
+  "https://drive.google.com/uc?id=17-Xv9EnL0zBXbj_GBP9oR0igrUVYIGRG",
+  "https://drive.google.com/uc?id=16aH0_904OXZzxAzuHGcqw8KW-4weODMG",
+  "https://drive.google.com/uc?id=16doNlXwyYF8WNykdjBQzf9s4bwnHOskT",
+];
+
 let currentIndex = 0;
-
-async function fetchImages() {
-  const folderId = "16_DHbZ-2xsXTruTn_dJqyegEfEsRyhXB"; // Replace with your Google Drive folder ID
-  const apiKey = "AIzaSyCwJLqEWAXLAkyYOvhEqKZ8kURae11Lq5k"; // Replace with your Google API key
-
-  const encodedFolderId = encodeURIComponent(folderId);
-  const apiUrl = `https://www.googleapis.com/drive/v3/files?q='${encodedFolderId}'+in+parents&key=${apiKey}&fields=files(id,name,mimeType)`;
-
-  console.log("API URL:", apiUrl); // Log the API URL
-
-  try {
-    const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-
-    console.log("API Response:", data);
-
-    images = data.files
-      .filter((file) => file.mimeType.startsWith("image/"))
-      .map((file) => `https://drive.google.com/uc?id=${file.id}`);
-
-    console.log("Filtered Image URLs:", images);
-
-    if (images.length > 0) {
-      changeImage();
-    } else {
-      console.error("No images found in the specified folder.");
-    }
-  } catch (error) {
-    console.error("Error fetching images:", error);
-  }
-}
+const imgElement = document.getElementById("image");
 
 function changeImage() {
-  if (images.length === 0) return;
-  const imgElement = document.getElementById("image");
-  console.log("Changing image to:", images[currentIndex]);
-  imgElement.src = images[currentIndex];
-  currentIndex = (currentIndex + 1) % images.length;
+  imgElement.src = imageUrls[currentIndex];
+  currentIndex = (currentIndex + 1) % imageUrls.length;
 }
 
-// Change image every 30 seconds (30000 milliseconds)
-setInterval(changeImage, 30000);
+// Change image every 3 seconds (3000 milliseconds) for demonstration
+setInterval(changeImage, 3000);
 
-// Fetch images and initialize the first image display
-fetchImages();
+// Initial display
+changeImage();
