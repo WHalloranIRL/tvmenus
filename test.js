@@ -16,14 +16,43 @@ async function fetchImages() {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
+
+    // Log the API response to inspect it
+    console.log("API Response:", data);
+
+    // Process and filter image files
     images = data.files
       .filter((file) => file.mimeType.startsWith("image/"))
       .map((file) => `https://drive.google.com/uc?id=${file.id}`);
-    changeImage();
+
+    // Log the filtered image URLs
+    console.log("Image URLs:", images);
+
+    // Initialize the first image display
+    if (images.length > 0) {
+      changeImage();
+    } else {
+      console.error("No images found in the specified folder.");
+    }
   } catch (error) {
     console.error("Error fetching images:", error);
     if (error.message.includes("403")) {
       console.error("Check your API key and permissions.");
+    } else if (error.message.includes("404")) {
+      console.error("Check your folder ID.");
     }
   }
 }
+
+function changeImage() {
+  if (images.length === 0) return;
+  const imgElement = document.getElementById("image");
+  imgElement.src = images[currentIndex];
+  currentIndex = (currentIndex + 1) % images.length;
+}
+
+// Change image every 30 seconds (30000 milliseconds)
+setInterval(changeImage, 30000);
+
+// Fetch images and initialize the first image display
+fetchImages();
