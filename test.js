@@ -19,7 +19,7 @@ async function fetchImages() {
 
     images = data.files
       .filter((file) => file.mimeType.startsWith("image/"))
-      .map((file) => `https://drive.google.com/uc?id=${file.id}`);
+      .map((file) => `https://drive.usercontent.google.com/uc?id=${file.id}`);
 
     console.log("Filtered Image URLs:", images);
 
