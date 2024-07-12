@@ -2,7 +2,7 @@ let images = [];
 let currentIndex = 0;
 
 async function fetchImages() {
-  const folderId = "16_DHbZ-2xsXTruTn_dJqyegEfEs"; // Replace with your Google Drive folder ID
+  const folderId = "16_DHbZ-2xsXTruTn_dJqyegEfEsRyhXB"; // Replace with your Google Drive folder ID
   const apiKey = "AIzaSyCwJLqEWAXLAkyYOvhEqKZ8kURae11Lq5k"; // Replace with your Google API key
 
   const encodedFolderId = encodeURIComponent(folderId);
